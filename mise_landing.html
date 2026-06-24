@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mise — готовь из того, что есть</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white:   #FFFFFF;
+      --beige:   #E6D3A3;
+      --olive:   #808000;
+      --olive-d: #5a5a00;
+      --olive-l: #a0a020;
+      --tan:     #D2B48C;
+      --black:   #1A1A1A;
+      --grey:    #888888;
+      --grey-l:  #F5F0E8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 40px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(230,211,163,0.4);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 700;
+      color: var(--olive);
+      letter-spacing: -0.5px;
+    }
+    .nav-cta {
+      background: var(--olive);
+      color: var(--white);
+      border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 600;
+      padding: 9px 22px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      letter-spacing: 0.3px;
+    }
+    .nav-cta:hover { background: var(--olive-d); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      background: var(--white);
+      position: relative; overflow: hidden;
+    }
+
+    /* Decorative background blob */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(230,211,163,0.45) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -55%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--olive);
+      background: rgba(128,128,0,0.1);
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 8vw, 88px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      color: var(--black);
+      max-width: 800px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--olive);
+    }
+
+    .hero-sub {
+      font-size: 17px; font-weight: 400;
+      color: var(--grey);
+      max-width: 420px;
+      line-height: 1.65;
+      margin-bottom: 44px;
+      position: relative;
+    }
+
+    .btn-download {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--olive);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px; font-weight: 600;
+      padding: 16px 36px;
+      border-radius: 100px;
+      text-decoration: none;
+      position: relative;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(128,128,0,0.28);
+    }
+    .btn-download:hover {
+      background: var(--olive-d);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(128,128,0,0.38);
+    }
+    .btn-download svg { flex-shrink: 0; }
+
+    .hero-note {
+      margin-top: 14px;
+      font-size: 12px; color: var(--grey);
+      position: relative;
+    }
+
+    /* Phone mockup */
+    .phone-wrap {
+      position: relative; margin-top: 72px;
+    }
+    .phone {
+      width: 220px; height: 380px;
+      background: var(--beige);
+      border-radius: 32px;
+      border: 2px solid rgba(128,128,0,0.2);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px;
+      box-shadow: 0 32px 80px rgba(128,128,0,0.15), 0 4px 16px rgba(0,0,0,0.08);
+      position: relative; overflow: hidden;
+      animation: float 3.5s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+    .phone-notch {
+      position: absolute; top: 14px;
+      width: 60px; height: 6px;
+      background: rgba(128,128,0,0.25);
+      border-radius: 100px;
+    }
+    .phone-bowl {
+      font-size: 52px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+    }
+    .phone-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--olive);
+    }
+    .phone-tag {
+      font-size: 10px; color: var(--tan);
+      font-weight: 500; letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ── BENEFITS ── */
+    .benefits {
+      padding: 100px 24px;
+      background: var(--grey-l);
+    }
+    .section-label {
+      text-align: center;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--olive); margin-bottom: 16px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700; text-align: center;
+      color: var(--black);
+      margin-bottom: 56px;
+      letter-spacing: -0.5px;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      max-width: 900px; margin: 0 auto;
+    }
+    .card {
+      background: var(--beige);
+      border-radius: 20px;
+      padding: 32px 28px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(128,128,0,0.14);
+    }
+    .card-icon {
+      width: 48px; height: 48px;
+      background: rgba(128,128,0,0.12);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-weight: 700;
+      color: var(--black); margin-bottom: 10px;
+    }
+    .card p {
+      font-size: 14px; color: var(--grey);
+      line-height: 1.6;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how {
+      padding: 100px 24px;
+      background: var(--white);
+    }
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 560px; margin: 0 auto;
+    }
+    .step {
+      display: flex; gap: 24px;
+      align-items: flex-start;
+      padding: 28px 0;
+      border-bottom: 1px solid rgba(230,211,163,0.6);
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 13px; font-weight: 700;
+      color: var(--olive);
+      min-width: 32px; padding-top: 3px;
+      opacity: 0.7;
+    }
+    .step-body h4 {
+      font-size: 16px; font-weight: 600;
+      color: var(--black); margin-bottom: 6px;
+    }
+    .step-body p {
+      font-size: 14px; color: var(--grey); line-height: 1.6;
+    }
+
+    /* ── DOWNLOAD SECTION ── */
+    .download-section {
+      padding: 100px 24px;
+      background: var(--beige);
+      text-align: center;
+    }
+    .download-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+    .download-section h2 em {
+      font-style: italic; color: var(--olive);
+    }
+    .download-section p {
+      font-size: 16px; color: var(--grey);
+      margin-bottom: 40px; line-height: 1.6;
+    }
+    .apk-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(128,128,0,0.1);
+      border: 1px solid rgba(128,128,0,0.25);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px; font-weight: 500;
+      color: var(--olive);
+      margin-bottom: 28px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--black);
+      padding: 40px 24px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px; font-weight: 700;
+      color: var(--beige);
+      margin-bottom: 12px;
+    }
+    .footer-authors {
+      font-size: 13px; color: rgba(255,255,255,0.4);
+      line-height: 1.8;
+    }
+    .footer-divider {
+      width: 40px; height: 2px;
+      background: var(--olive);
+      margin: 16px auto;
+      border-radius: 2px;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 16px 20px; }
+      .hero { padding: 100px 20px 60px; }
+      .benefits, .how, .download-section { padding: 72px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">mise</div>
+    <a href="#download" class="nav-cta">Скачать APK</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">Мобильное приложение</div>
+    <h1>Готовь из того,<br><em>что есть</em></h1>
+    <p class="hero-sub">Введи продукты из холодильника — AI придумает рецепт. Без рекламы, без регистрации.</p>
+    <a href="#download" class="btn-download">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Скачать APK
+    </a>
+    <p class="hero-note">Android · бесплатно</p>
+
+    <div class="phone-wrap reveal">
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-bowl">🍜</div>
+        <div class="phone-label">mise</div>
+        <div class="phone-tag" style="max-width:160px;text-align:center;line-height:1.5">хватит думать что готовить</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="benefits">
+    <p class="section-label reveal">Зачем это нужно</p>
+    <h2 class="section-title reveal">Три проблемы. Одно приложение.</h2>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="card-icon">🔍</div>
+        <h3>Долгий поиск</h3>
+        <p>Кулинарные сайты — это реклама, баннеры и история про бабушку автора. Mise даёт только рецепт.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🧠</div>
+        <h3>AI под твои продукты</h3>
+        <p>Не ищешь рецепт — описываешь что есть. Приложение само придумывает блюдо из этого набора.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🔖</div>
+        <h3>Всё офлайн</h3>
+        <p>Сохранённые рецепты работают без интернета. Открыл — приготовил. Без подписок и аккаунтов.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <p class="section-label reveal">Как это работает</p>
+    <h2 class="section-title reveal">Три шага к ужину</h2>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h4>Вводишь продукты</h4>
+          <p>Пишешь что есть в холодильнике. Хоть три ингредиента, хоть десять — приложение разберётся.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h4>AI генерирует рецепт</h4>
+          <p>Название блюда, список ингредиентов, пошаговые инструкции. Всё в одном экране.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h4>Сохраняешь и готовишь</h4>
+          <p>Понравилось — одна кнопка, и рецепт в избранном. Работает без интернета в любом месте.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section class="download-section" id="download">
+    <div class="apk-badge reveal">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.523 15.341l-4.84-8.38a.75.75 0 00-1.306 0l-4.84 8.38A.75.75 0 007.19 16.5h9.62a.75.75 0 00.713-1.159z"/></svg>
+      APK · Android
+    </div>
+    <h2 class="reveal">Готово.<br><em>Скачивай.</em></h2>
+    <p class="reveal">Установи APK и начни готовить из того, что уже есть.</p>
+    <a href="#" class="btn-download reveal">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+      Скачать APK
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">mise</div>
+    <div class="footer-divider"></div>
+    <div class="footer-authors">
+      Швецов Владислав · Коваль Дмитрий<br>
+      1ИП-12-25 · 2025
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
